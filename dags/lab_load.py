@@ -34,7 +34,7 @@ def get_raw_files():
     month = now.month  # 12
     day = now.day  # 19
     hour = now.hour  # 14
-        # start_time = time.time()
+    # start_time = time.time()
     prefix = f"year={year:04d}/month={month:02d}/day={day:02d}/hour={hour:02d}/"
     print(f"Listing objects in MinIO with prefix: {prefix}")
     logging.info(f"Listing objects in MinIO with prefix: {prefix}")
@@ -53,12 +53,15 @@ def get_raw_files():
 
 def process_files(ti):
     destination_bucket_name = "processed"
+    app_folder = "people"
     now = datetime.now()
     year = now.year  # 2025
     month = now.month  # 12
     day = now.day  # 19
     hour = now.hour  # 14
-    prefix = f"year={year:04d}/month={month:02d}/day={day:02d}/hour={hour:02d}/"
+    prefix = (
+        f"{app_folder}/year={year:04d}/month={month:02d}/day={day:02d}/hour={hour:02d}/"
+    )
     data = ti.xcom_pull(task_ids="get_raw_files")
     if data:
         out_buffer = get_parquet_buffer_from_flattened_records(data)
