@@ -83,7 +83,7 @@ with DAG(
     "lab_load",
     default_args=default_args,
     description="Ingestão de dados do lab",
-    schedule_interval="* * * * *",  # Use cron expression for every minute
+    schedule_interval="59 * * * *",  # Use cron expression for every minute
     catchup=False,
 ) as dag:
     get_files_task = PythonOperator(
